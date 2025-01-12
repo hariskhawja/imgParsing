@@ -1,6 +1,7 @@
 from PIL import Image
 from typing import List
 import os
+import time
 
 def imgConv(img : str, fileType="png") -> str:
     """Replaces image with itself of a 
@@ -127,11 +128,13 @@ def parseImage(img : str, saveFolder : str, colour : str, step=1, highlight=(0,0
             if (conditional): 
                 for row in range(step):
                     for col in range(step):
-                        newImg[i+row, j+col] = highlight
+                        if i+row < width and j+col < height:
+                            newImg[i+row, j+col] = highlight
             
             else: 
                 for row in range(step):
                     for col in range(step):
-                        newImg[i+row, j+col] = background
+                        if i+row < width and j+col < height:
+                            newImg[i+row, j+col] = background
 
     img.save(os.path.join(saveFolder, name))
